@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>URL Scheme for Activity Streams 2.0</title>
+  </head>
+  <body>
+    <h1>URL Scheme for Activity Streams 2.0</h1>
+    <p>Author: Akihiko Odaki &lt;<a href="mailto:akihiko.odaki.4i@stu.hosei.ac.jp">akihiko.odaki.4i@stu.hosei.ac.jp</a>></p>
+    <p>Copyright (C) 2017 Akihiko Odaki. Licensed under
+       <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0
+       1.0</a>.</p>
+    <section>
+      <h2>Abstract</h2>
+      <p>This specification describes URL scheme to declare it is
+         Activity Streams 2.0.</p>
+      <section>
+        <h3>Author's Note</h3>
+        <p>This draft is written to implement intent feature in Mastodon, an
+           Activity Streams implementation.</p>
+      </section>
+    </section>
+    <section>
+      <h2>Status of This Document</h2>
+      <p><i>This section describes the status of this document at the time of
+         its publication. Other documents may supersede this document.</i></p>
+      <p>This document was published by the author as a proposal for Mastodon
+         and other Activity Streams applications. Please write comments
+         regarding this document to the following issue in Mastodon:<br>
+         <a href="https://github.com/tootsuite/mastodon/issues/2291">URL scheme
+         for remote follow, share buttons · Issue #2291 ·
+         tootsuite/mastodon</a></p>
+      <p>This document is expected to be useful also for other Activity Streams
+         applications. If you have any request to change for them, please
+         contact the author. E-mail is the most reliable means for that, but
+         OStatus2 is also acceptable. Send a note to
+         <a href="https://pawoo.net/@fn_aki">@fn_aki@pawoo.net</a>.</p>
+    </section>
+    <section>
+      <h2>1. Introduction</h2>
+      <p>Chromium is a popular Web browser, and provides to implement a custom
+         protocol handler for some URL schemes. This defines a URL scheme
+         specific to Activity Streams 2.0 to take advantage of the feature.</p>
+      <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+         " SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+         document are to be interpreted as described in [RFC2119].</p>
+    </section>
+    <section>
+      <h2>2. <code>web+activity+data</code> URL Scheme</h2>
+      <p>All of the requirements <code>data</code> scheme listed in
+         [RFC2397] are also requirements for <code>web+activity+data</code>
+         scheme, except that it is explicitly declared to be an Activity
+         Streams representation and &lt;mediatype> defaults to
+         <code>application/activity+json;charset=UTF-8</code> if it is
+         omitted. As a shorthand, <code>application/activity+json</code> can be
+         omitted but the charset parameter supplied.</p>
+    </section>
+    <section>
+      <h2>3. <code>web+activity+https</code> URL Scheme</h2>
+      <p>All of the requirements for <code>https</code> scheme listed in
+         [RFC7230], Section 2.7.2 are also requirements for the
+         <code>web+activity+https</code> scheme, except that it is explicitly
+         declared to be an Activity Streams representation, and the user agent
+         MUST set <code>application/activity+json</code> for the
+         <code>Accept</code> header field defined in [RFC7231], Section
+         5.3.2.</p>
+      <p>The syntax is specified using the following [ABNF] syntax
+         description.</p>
+      <p>authority              = &lt;authority, see [RFC3986], Section 3.2><br>
+         path-abempty           = &lt;path-abempty, see [RFC3986], Section 3.3><br>
+         query                  = &lt;query, see [RFC3986], Section 3.4><br>
+         fragment               = &lt;fragment, see [RFC3986], Section 3.5><br>
+         web-activity-https-URI = "web+activity+https:" "//" authority
+                                  path-abempty [ "?" query ]
+                                  [ "#" fragment ]</p>
+    </section>
+    <section>
+      <h2>4. Implementation Notes</h2>
+      <p><i>This section is non-normative.</i></p>
+      <p>The main use case of <code>web+activity+data</code> and
+         <code>web+activity+https</code> scheme is to allow more Web browsers to
+         have a custom handler. When writing a link to Activity Streams
+         representation for public, the link SHOULD use those schemes for better
+         compatibility.</p>
+    </section>
+    <section>
+      <h2>5. Security Considerations</h2>
+      <p><i>This section is non-normative.</i></p>
+      <p>A scheme corresponding to <code>http</code> scheme is not defined in
+         this document and SHOULD NOT be implemented.</p>
+    </section>
+    <section>
+      <h2>A. References</h2>
+      <dl>
+        <dt>[ABNF]</dt>
+        <dd>Augmented BNF for Syntax Specifications: ABNF. D. Crocker, Ed.;
+            P. Overell. IETF. January 2008. Internet Standard. URL:
+            <a href="https://tools.ietf.org/html/rfc5234">https://tools.ietf.org/html/rfc5234</a></dd>
+        <dt>[Activity Streams 2.0]</dt>
+        <dd>James M Snell; Evan Prodromou. W3C.
+            URL:
+            <a href="https://www.w3.org/TR/activitystreams-core/">https://www.w3.org/TR/activitystreams-core/</a></dd>
+        <dt>[RFC2119]</dt>
+        <dd>Key words for use in RFCs to Indicate Requirement Levels. S.
+            Bradner. IETF. March 1997. Best Current Practice. URL:
+            <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd>
+        <dt>[RFC2397]</dt>
+        <dd>The "data" URL scheme: L. Masinter. Internet Standard. URL:
+            <a href="https://tools.ietf.org/html/rfc2397">https://tools.ietf.org/html/rfc2397</a></dd>
+        <dt>[RFC3986]</dt>
+        <dd>Uniform Resource Identifier (URI): Generic Syntax. T. Berners-Lee;
+            R. Fielding; L. Masinter. IETF. January 2005. Internet Standard.
+            URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a></dd>
+        <dt>[RFC7230]</dt>
+        <dd>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing:
+            R. Fielding; J. Reschke. Internet Standard. URL:
+            <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a></dd>
+        <dt>[RFC7231]</dt>
+        <dd>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content:
+            R. Fielding; J. Reschke. Internet Standard. URL:
+            <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a></dd>
+      </dl>
+    </section>
+  </body>
+</html>
