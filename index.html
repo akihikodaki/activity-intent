@@ -106,16 +106,31 @@
     </section>
     <section>
       <h2>3. Implementation Notes</h2>
-      <p><i>This section is non-normative.</i></p>
-      <p>The main use case of Intent class are deliveries of intents declared at
-         locations different from those where the activity to be performed.
-         Locations MAY NOT be physical, but they could be Web sites, offline
-         storage media, or anything which can save representations of Activity
-         Streams.</p>
-      <p>For example, Web sites may have a hyperlink to an intent to follow its
-         author.</p>
-      <p>A person may pass a representation of Activity Streams to someone who
-         met offline to make it easy for him or her to follow the person.</p>
+      <section>
+        <h3>3.1 Unsupported Activities for Intents</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>Some activities MAY NOT have a clear meaning as intent targets.
+           For example, it is quite a unclear that an intent of an intent means.
+           Some MAY NOT be simply supported by the receiver as intent
+           targets.</p>
+        <p>A provider of an intent SHOULD NOT assume a particular activity
+           is supported as an intent target by any receivers. A public provider
+           of an intent SHOULD provide a fallback in case that the receiver
+           could not process the intent.</p>
+      </section>
+      <section>
+        <h3>3.2 Motivating Use Cases</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>The main use case of Intent class are deliveries of intents declared at
+           locations different from those where the activity to be performed.
+           Locations MAY NOT be physical, but they could be Web sites, offline
+           storage media, or anything which can save representations of Activity
+           Streams.</p>
+        <p>For example, Web sites may have a hyperlink to an intent to follow its
+           author.</p>
+        <p>A person may pass a representation of Activity Streams to someone who
+           met offline to make it easy for him or her to follow the person.</p>
+      </section>
     </section>
     <section>
       <h2>4. Security Considerations</h2>
