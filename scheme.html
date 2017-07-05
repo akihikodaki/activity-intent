@@ -77,7 +77,7 @@
     <section>
       <h2>4. Implementation Notes</h2>
       <section>
-        <h3>Writing URLs of Activity Streams Representations</h3>
+        <h3>4.1 Writing URLs of Activity Streams Representations</h3>
         <p><i>This section is non-normative.</i></p>
         <p>The main use case of schemes defined in this specification is to
            allow more Web browsers to have a custom handler. If writing a URL of
@@ -90,12 +90,12 @@
            specified as <code>href</code> attribute of <code>a</code>
            element with truthy <code>download</code> attribute, its scheme
            SHOULD be <code>https</code> rather than
-           <code>web+activity+https</code>. Here, <code>href</code> attribute
+           <code>web+activity+https</code>. Here, <code>href</code> attribute,
            <code>a</code> element and <code>download</code> attribute are
            specified in [HTML5].</p>
       </section>
       <section>
-        <h3>Consuming URLs of Activity Streams Representations</h3>
+        <h3>4.2 Consuming URLs of Activity Streams Representations</h3>
         <p><i>This section is non-normative.</i></p>
         <p>If a consumer of URLs understands <code>web+activity+data</code>
            scheme, it SHOULD understand <code>data</code> scheme for the same
@@ -109,7 +109,8 @@
       <h2>5. Security Considerations</h2>
       <p><i>This section is non-normative.</i></p>
       <p>A scheme corresponding to <code>http</code> scheme is not defined in
-         this document and SHOULD NOT be implemented.</p>
+         this document and URLs such a scheme SHOULD NOT be used to deliver
+         them to public.</p>
     </section>
     <section>
       <h2>A. References</h2>
