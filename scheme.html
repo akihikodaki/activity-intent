@@ -76,12 +76,34 @@
     </section>
     <section>
       <h2>4. Implementation Notes</h2>
-      <p><i>This section is non-normative.</i></p>
-      <p>The main use case of <code>web+activity+data</code> and
-         <code>web+activity+https</code> scheme is to allow more Web browsers to
-         have a custom handler. When writing a link to Activity Streams
-         representation for public, the link SHOULD use those schemes for better
-         compatibility.</p>
+      <section>
+        <h3>Writing URLs of Activity Streams Representations</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>The main use case of schemes defined in this specification is to
+           allow more Web browsers to have a custom handler. If writing a URL of
+           Activity Streams representation for public and it is intended to be
+           processed by Activity Streams applications, the link SHOULD use those
+           schemes for better compatibility.</p>
+        <p>If the URLs are intended to be processed by a generic application
+           rather than Activity Streams applications, the link SHOULD NOT use
+           schemes defined in this specification. For example, if a URL is
+           specified as <code>href</code> attribute of <code>a</code>
+           element with truthy <code>download</code> attribute, its scheme
+           SHOULD be <code>https</code> rather than
+           <code>web+activity+https</code>. Here, <code>href</code> attribute
+           <code>a</code> element and <code>download</code> attribute are
+           specified in [HTML5].</p>
+      </section>
+      <section>
+        <h3>Consuming URLs of Activity Streams Representations</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>If a consumer of URLs understands <code>web+activity+data</code>
+           scheme, it SHOULD understand <code>data</code> scheme for the same
+           purposes to achieve interoperability.</p>
+        <p>If a consumer of URLs understands <code>web+activity+https</code>
+           scheme, it SHOULD understand <code>https</code> scheme for the same
+           purposes to achieve better interoperability.</p>
+      </section>
     </section>
     <section>
       <h2>5. Security Considerations</h2>
@@ -91,35 +113,45 @@
     </section>
     <section>
       <h2>A. References</h2>
-      <dl>
-        <dt>[ABNF]</dt>
-        <dd>Augmented BNF for Syntax Specifications: ABNF. D. Crocker, Ed.;
-            P. Overell. IETF. January 2008. Internet Standard. URL:
-            <a href="https://tools.ietf.org/html/rfc5234">https://tools.ietf.org/html/rfc5234</a></dd>
-        <dt>[Activity Streams 2.0]</dt>
-        <dd>James M Snell; Evan Prodromou. W3C.
-            URL:
-            <a href="https://www.w3.org/TR/activitystreams-core/">https://www.w3.org/TR/activitystreams-core/</a></dd>
-        <dt>[RFC2119]</dt>
-        <dd>Key words for use in RFCs to Indicate Requirement Levels. S.
-            Bradner. IETF. March 1997. Best Current Practice. URL:
-            <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd>
-        <dt>[RFC2397]</dt>
-        <dd>The "data" URL scheme: L. Masinter. Internet Standard. URL:
-            <a href="https://tools.ietf.org/html/rfc2397">https://tools.ietf.org/html/rfc2397</a></dd>
-        <dt>[RFC3986]</dt>
-        <dd>Uniform Resource Identifier (URI): Generic Syntax. T. Berners-Lee;
-            R. Fielding; L. Masinter. IETF. January 2005. Internet Standard.
-            URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a></dd>
-        <dt>[RFC7230]</dt>
-        <dd>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing:
-            R. Fielding; J. Reschke. Internet Standard. URL:
-            <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a></dd>
-        <dt>[RFC7231]</dt>
-        <dd>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content:
-            R. Fielding; J. Reschke. Internet Standard. URL:
-            <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a></dd>
-      </dl>
+      <section>
+        <h3>A.1 Normative References</h3>
+        <dl>
+          <dt>[ABNF]</dt>
+          <dd>Augmented BNF for Syntax Specifications: ABNF. D. Crocker, Ed.;
+              P. Overell. IETF. January 2008. Internet Standard. URL:
+              <a href="https://tools.ietf.org/html/rfc5234">https://tools.ietf.org/html/rfc5234</a></dd>
+          <dt>[Activity Streams 2.0]</dt>
+          <dd>James M Snell; Evan Prodromou. W3C.
+              URL:
+              <a href="https://www.w3.org/TR/activitystreams-core/">https://www.w3.org/TR/activitystreams-core/</a></dd>
+          <dt>[RFC2119]</dt>
+          <dd>Key words for use in RFCs to Indicate Requirement Levels. S.
+              Bradner. IETF. March 1997. Best Current Practice. URL:
+              <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd>
+          <dt>[RFC2397]</dt>
+          <dd>The "data" URL scheme: L. Masinter. Internet Standard. URL:
+              <a href="https://tools.ietf.org/html/rfc2397">https://tools.ietf.org/html/rfc2397</a></dd>
+          <dt>[RFC3986]</dt>
+          <dd>Uniform Resource Identifier (URI): Generic Syntax. T. Berners-Lee;
+              R. Fielding; L. Masinter. IETF. January 2005. Internet Standard.
+              URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a></dd>
+          <dt>[RFC7230]</dt>
+          <dd>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing:
+              R. Fielding; J. Reschke. Internet Standard. URL:
+              <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a></dd>
+          <dt>[RFC7231]</dt>
+          <dd>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content:
+              R. Fielding; J. Reschke. Internet Standard. URL:
+              <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a></dd>
+        </dl>
+      </section>
+      <section>
+        <h3>A.2 Informative References</h3>
+        <dt>[HTML5]</dt>
+        <dd>HTML5. Ian Hickson; Robin Berjon; Steve Faulkner; Travis Leithead;
+            Erika Doyle Navara; Theresa O'Connor; Silvia Pfeiffer. W3C. URL:
+            <a href="https://www.w3.org/TR/html5/">https://www.w3.org/TR/html5/</a></dd>
+      </section>
     </section>
   </body>
 </html>
