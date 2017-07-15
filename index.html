@@ -2,101 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Intent Class In Activity Streams 2.0 Vocabulary</title>
+    <title>ActivityIntent</title>
   </head>
   <body>
-    <h1>Intent Class In Activity Streams 2.0 Vocabulary</h1>
+    <h1>ActivityIntent</h1>
     <p>Author: Akihiko Odaki &lt;<a href="mailto:akihiko.odaki.4i@stu.hosei.ac.jp">akihiko.odaki.4i@stu.hosei.ac.jp</a>></p>
     <p>Copyright (C) 2017 Akihiko Odaki. Licensed under
        <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0
        1.0</a>.</p>
     <section>
       <h2>Abstract</h2>
-      <p>This specification describes <code>Intent</code> class in Activity
-         vocabulary. It is intended to be used in the context of the
-         ActivityStreams 2.0 format and provides an extension for [Activity
-         Vocabulary] to implement intent feature with Activity Streams 2.0.</p>
-      <section>
-        <h3>Author's Note</h3>
-        <p><i>This section is non-normative.</i></p>
-        <p>This draft is written to implement intent feature in Mastodon, an
-           Activity Streams implementation. This draft is heavily influenced by
-           [Activity Vocabulary]. The author is glad to use Mastodon utilizing
-           the format, and hope further development and other applications of
-           Activity Streams. Some portions of [Activity Vocabulary] are used in
-           this document.</p>
-      </section>
+      <p>This document lists specifications to implement intent feature for
+         ActivityPub.</p>
     </section>
     <section>
       <h2>Status of This Document</h2>
       <p><i>This section describes the status of this document at the time of
          its publication. Other documents may supersede this document.</i></p>
-      <p>This document was published by the author as a proposal for Mastodon
-         and other Activity Streams applications. Please write comments
+      <p>While specifications listed in this document will eventually be
+         proposed for <abbr title="World Wide Web Consortium">W3C</abbr>
+         standard, this document itself is not included in those proposals.</p>
+      <p>Listed specifications are published by the author as a proposal for
+         Mastodon and other [ActivityPub] applications. Please write comments
          regarding this document to the following issue in Mastodon:<br>
          <a href="https://github.com/tootsuite/mastodon/issues/2291">URL scheme
          for remote follow, share buttons · Issue #2291 ·
          tootsuite/mastodon</a></p>
-      <p>This document is expected to be useful also for other Activity Streams
+      <p>This document is expected to be useful also for other ActivityPub
          applications. If you have any request to change for them, please
          contact the author. E-mail is the most reliable means for that, but
          OStatus2 is also acceptable. Send a note to
          <a href="https://pawoo.net/@fn_aki">@fn_aki@pawoo.net</a>.</p>
     </section>
     <section>
-      <h2>1. Introduction</h2>
-      <p>[Activity Vocabulary] defines Activity class for Activity Streams. This
-         document defines vocabulary properties to describe an intent for
-         activities represented by the class.</p>
-      <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-         " SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-         document are to be interpreted as described in [RFC2119].</p>
-    </section>
-    <section>
-      <h2>2. Intent Class</h2>
-      <section>
-        <h3>2.1 URI</h3>
-        <p><code>Intent</code> class is identified with the following URI:
-           <code>https://akihikodaki.github.io/activitystreams-vocabulary-intent</code></p>
-        <p>The URI is temporary and subject to later change.</p>
-      </section>
-      <section>
-        <h3>2.2 Subtype and Semantics</h3>
-        <p>An intent is a subtype of <code>IntransitiveActivity</code>. An
-           intent is about an activity.</p>
-      </section>
-      <section>
-        <h3>2.3 target property</h3>
-        <p><code>target</code> property describes an activity intended to be
-           performed.</p>
-      </section>
-      <section>
-        <h3>2.4 Example</h3>
-        <p><i>This section is non-normative.</i></p>
-        <pre><code>{
-  "@context": "https://www.w3.org/ns/activitystreams",
-  "type": "Intent",
-  "summary": "Mallory is going to follow someone",
-  "actor": "https://example.net/~mallory",
-  "target": {
-     "type": "Follow"
-  }
-}</code></pre>
-        <p>An user agent received the above intent MAY ask Mallory the person to
-           be followed.</p>
-      </section>
-    </section>
-    <section>
-      <h2>A. References</h2>
-      <dl>
-        <dt>[Activity Vocabulary]</dt>
-        <dd>James M Snell; Evan Prodromou. W3C. URL:
-            <a href="https://www.w3.org/TR/activitystreams-vocabulary/">https://www.w3.org/TR/activitystreams-vocabulary/</a></dd>
-        <dt>[RFC2119]</dt>
-        <dd>Key words for use in RFCs to Indicate Requirement Levels. S.
-            Bradner. IETF. March 1997. Best Current Practice. URL:
-            <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd>
-      </dl>
+      <h2>Specifications</h2>
+      <p>The following specifications are proposed to implement intent feature
+         for ActivityPub.</p>
+      <ul>
+        <li><a href="./activitypub.html">ActivityPub Extension for Intent</a></li>
+        <li><a href="./scheme.html">URL Scheme for Activity Streams 2.0</a></li>
+        <li><a href="./vocabulary.html">Intent Class in Activity Streams 2.0 Vocabulary</a></li>
+      </ul>
     </section>
   </body>
 </html>
