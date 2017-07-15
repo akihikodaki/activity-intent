@@ -60,8 +60,7 @@
          by the client.</p>
       <section>
         <h4>EXAMPLE: An Intent</h4>
-        <code>
-          <pre>{
+        <pre><code>{
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Intent",
   "summary": "Mallory is going to follow someone",
@@ -69,8 +68,7 @@
   "target": {
      "type": "Follow"
   }
-}</pre>
-        </code>
+}</code></pre>
       </section>
       <p>The client then prepares the body of the <code>POST</code> request
          which would be performed in a client to server intraction of
@@ -98,8 +96,7 @@
         <section>
           <h5>EXAMPLE: An intent with <code>actor</code> and non-Activity
               <code>target</code></h5>
-          <code>
-            <pre>{
+          <pre><code>{
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Intent",
   "summary": "Mallory is creating a note",
@@ -112,11 +109,9 @@
      "cc": ["https://example.com/~erik/followers",
             "https://www.w3.org/ns/activitystreams#Public"]
   }
-}</pre>
-          </code>
+}</code></pre>
           <p>The above example could result in this:</p>
-          <code>
-            <pre>{
+          <pre><code>{
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Create",
   "id": "https://example.net/~mallory/87374"
@@ -135,8 +130,7 @@
   "to": ["https://example.org/~john/"],
   "cc": ["https://example.com/~erik/followers",
          "https://www.w3.org/ns/activitystreams#Public"]
-}</pre>
-          </code>
+}</code></pre>
         </section>
       </section>
     </section>
