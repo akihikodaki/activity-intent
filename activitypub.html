@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>ActivityPub Extension for Intent</title>
+  </head>
+  <body>
+    <h1>ActivityPub Extension for Intent</h1>
+    <p>Author: Akihiko Odaki &lt;<a href="mailto:akihiko.odaki.4i@stu.hosei.ac.jp">akihiko.odaki.4i@stu.hosei.ac.jp</a>></p>
+    <p>Copyright (C) 2017 Akihiko Odaki. Licensed under
+       <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0
+       1.0</a>.</p>
+    <section>
+      <h2>Abstract</h2>
+      <p>This specification describes how [ActivityPub] implementation should
+         handle [Intent Class In Activity Streams 2.0 Vocabulary].</p>
+      <section>
+        <h3>Author's Note</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>This draft is written to implement intent feature in Mastodon, an
+           [ActivityPub] implementation. The author is glad to use Mastodon
+           utilizing the protocol, and hope further development and other
+           applications of [ActivityPub].</p>
+      </section>
+    </section>
+    <section>
+      <h2>Status of This Document</h2>
+      <p><i>This section describes the status of this document at the time of
+         its publication. Other documents may supersede this document.</i></p>
+      <p>This document was published by the author as a proposal for Mastodon
+         and other [ActivityPub] applications. Please write comments
+         regarding this document to the following issue in Mastodon:<br>
+         <a href="https://github.com/tootsuite/mastodon/issues/2291">URL scheme
+         for remote follow, share buttons · Issue #2291 ·
+         tootsuite/mastodon</a></p>
+      <p>This document is expected to be useful also for other Activity Streams
+         applications. If you have any request to change for them, please
+         contact the author. E-mail is the most reliable means for that, but
+         OStatus2 is also acceptable. Send a note to
+         <a href="https://pawoo.net/@fn_aki">@fn_aki@pawoo.net</a>.</p>
+    </section>
+    <section>
+      <h2>1. Introduction</h2>
+      <p>[Intent Class In Activity Streams 2.0 Vocabulary] defines a class named
+         <code>Intent</code>. The class does not exist in [Activity Vocabulary],
+         which [ActivityPub] relies on. This document extends ActivityPub to
+         handle the instance.</p>
+      <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+         " SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+         document are to be interpreted as described in [RFC2119].</p>
+    </section>
+    <section>
+      <h3>2. Consuming Intents in Clients</h3>
+      <p>Clients of [ActivityPub] can consume intents to perform activities
+         described with intents.</p>
+      <p>Intents MUST be described as an instance of [Intent Class In Activity
+         Streams 2.0 Vocabulary]. <code>target</code> property of the instance
+         MUST contain a single Activity (which MAY contain embedded objects), or
+         a single non-Activity object which will be wrapped in a Create Activity
+         by the client.</p>
+      <section>
+        <h4>EXAMPLE: An Intent</h4>
+        <code>
+          <pre>{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Intent",
+  "summary": "Mallory is going to follow someone",
+  "actor": "https://example.net/~mallory",
+  "target": {
+     "type": "Follow"
+  }
+}</pre>
+        </code>
+      </section>
+      <p>The client then prepares the body of the <code>POST</code> request
+         which would be performed in a client to server intraction of
+         [ActivityPub]. The body MUST contain an object produced by the
+         following procedure or an equivalent. Here, the object is called as
+         <i>message</i>.</p>
+      <p>If an instance has values for some of <code>actor</code>,
+         <code>result</code>, <code>origin</code>, and <code>instrument</code>
+         property and <code>target</code> property is an Activity of
+         [ActivityPub] without those properties, or a non-Activity object, the
+         <i>message</i> MUST be an Activity. If <code>target</code> property is
+         an Activity, the property MUST be copied as the <i>message</i>.
+         Otherwise, the <i>message</i> MUST be a Create Acitivy of
+         [ActivityPub], and <code>target</code> property MUST be attached as its
+         <code>object</code> property.</p>
+      <p>If an instance does not have values for any of <code>actor</code>
+         <code>result</code>, <code>origin</code>, and <code>instrument</code>
+         property, <code>target</code> property MUST be copied as the
+         <i>message</i>.</p>
+      <section>
+        <h4>2.1 Wrapping an object in a Create Activity</h4>
+        <p>In case the client MUST wrap an object in a Create Activity,
+           the client MUST follow the procedure as servers do in client to
+           server intractions in [ActivityPub].</p>
+        <section>
+          <h5>EXAMPLE: An intent with <code>actor</code> and non-Activity
+              <code>target</code></h5>
+          <code>
+            <pre>{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Intent",
+  "summary": "Mallory is creating a note",
+  "actor": "https://example.net/~mallory",
+  "target": {
+     "type": "Note",
+     "content": "This is a note",
+     "published": "2015-02-10T15:04:55Z",
+     "to": ["https://example.org/~john/"],
+     "cc": ["https://example.com/~erik/followers",
+            "https://www.w3.org/ns/activitystreams#Public"]
+  }
+}</pre>
+          </code>
+          <p>The above example could result in this:</p>
+          <code>
+            <pre>{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Create",
+  "id": "https://example.net/~mallory/87374"
+  "actor": "https://example.net/~mallory",
+  "object": {
+    "id": "https://example.com/~mallory/note/72",
+    "type": "Note",
+    "attributedTo": "https://example.net/~mallory",
+    "content": "This is a note",
+    "published": "2015-02-10T15:04:55Z",
+    "to": ["https://example.org/~john/"],
+    "cc": ["https://example.com/~erik/followers",
+           "https://www.w3.org/ns/activitystreams#Public"]
+  },
+  "published": "2015-02-10T15:04:55Z",
+  "to": ["https://example.org/~john/"],
+  "cc": ["https://example.com/~erik/followers",
+         "https://www.w3.org/ns/activitystreams#Public"]
+}</pre>
+          </code>
+        </section>
+      </section>
+    </section>
+    <section>
+      <h2>3. Implementation Notes</h2>
+      <section>
+        <h3>3.1 Unsupported Activities for Intents</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>Some activities MAY NOT have a clear meaning as intent targets.
+           For example, it is quite a unclear that an intent of an intent means.
+           Some MAY NOT be simply supported by the receiver as intent
+           targets.</p>
+        <p>A provider of an intent SHOULD NOT assume a particular activity
+           is supported as an intent target by any receivers. A public provider
+           of an intent SHOULD provide a fallback in case that the receiver
+           could not process the intent.</p>
+      </section>
+      <section>
+        <h3>3.2 Motivating Use Cases</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>The main use case of Intent class are deliveries of intents declared at
+           locations different from those where the activity to be performed.
+           Locations MAY NOT be physical, but they could be Web sites, offline
+           storage media, or anything which can save representations of Activity
+           Streams.</p>
+        <p>For example, Web sites may have a hyperlink to an intent to follow its
+           author.</p>
+        <p>A person may pass a representation of Activity Streams to someone who
+           met offline to make it easy for him or her to follow the person.</p>
+      </section>
+      <section>
+        <h3>4.4 Advertising the Use of <code>Intent</code> class</h3>
+        <p><i>This section is non-normative.</i></p>
+        <p>A consumer of <code>Intent</code> class SHOULD advertise the use of
+           <code>Intent</code> for potential providers.</p>
+      </section>
+    </section>
+    <section>
+      <h2>4. Security Considerations</h2>
+        <p><i>This section is non-normative.</i></p>
+        <p>This specification does not provide any means to assure authenticity
+           of the intent. An intent from an entity and/or through a
+           transportation without authenticity MUST be reviewed by the
+           actor.</p>
+    </section>
+    <section>
+      <h2>A. References</h2>
+      <dl>
+        <dt>[Activity Vocabulary]</dt>
+        <dd>James M Snell; Evan Prodromou. W3C. URL:
+            <a href="https://www.w3.org/TR/activitystreams-vocabulary/">https://www.w3.org/TR/activitystreams-vocabulary/</a></dd>
+        <dt>ActivityPub</dt>
+        <dd>Owen Shepherd. W3C. URL:
+            <a href="https://www.w3.org/TR/activitypub/">https://www.w3.org/TR/activitypub/</a></dd>
+        <dt>[Intent Class In Activity Streams 2.0 Vocabulary]</dt>
+        <dd>Akihiko Odaki. URL:
+            <a href="https://akihikodaki.github.io/activity-vocabulary-intent">https://akihikodaki.github.io/activity-vocabulary-intent</a></dd>
+        <dt>[RFC2119]</dt>
+        <dd>Key words for use in RFCs to Indicate Requirement Levels. S.
+            Bradner. IETF. March 1997. Best Current Practice. URL:
+            <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd>
+      </dl>
+    </section>
+  </body>
+</html>
