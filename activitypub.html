@@ -54,7 +54,7 @@
       <p>Clients of [ActivityPub] can consume intents to perform activities
          described with intents.</p>
       <p>Intents MUST be described as an instance of [Intent Class In Activity
-         Streams 2.0 Vocabulary]. <code>target</code> property of the instance
+         Streams 2.0 Vocabulary]. <code>object</code> property of the instance
          MUST contain a single Activity (which MAY contain embedded objects), or
          a single non-Activity object which will be wrapped in a Create Activity
          by the client.</p>
@@ -65,7 +65,7 @@
   "type": "https://akihikodaki.github.io/activity-intent/ns#Intent",
   "summary": "Mallory is going to follow someone",
   "actor": "https://example.net/~mallory",
-  "target": {
+  "object": {
      "type": "Follow"
   }
 }</code></pre>
@@ -77,16 +77,16 @@
          <i>message</i>.</p>
       <p>If an instance has values for some of <code>actor</code>,
          <code>result</code>, <code>origin</code>, and <code>instrument</code>
-         property and <code>target</code> property is an Activity of
+         property and <code>object</code> property is an Activity of
          [ActivityPub] without those properties, or a non-Activity object, the
-         <i>message</i> MUST be an Activity. If <code>target</code> property is
+         <i>message</i> MUST be an Activity. If <code>object</code> property is
          an Activity, the property MUST be copied as the <i>message</i>.
          Otherwise, the <i>message</i> MUST be a Create Acitivy of
-         [ActivityPub], and <code>target</code> property MUST be attached as its
+         [ActivityPub], and <code>object</code> property MUST be attached as its
          <code>object</code> property.</p>
       <p>If an instance does not have values for any of <code>actor</code>
          <code>result</code>, <code>origin</code>, and <code>instrument</code>
-         property, <code>target</code> property MUST be copied as the
+         property, <code>object</code> property MUST be copied as the
          <i>message</i>.</p>
       <section>
         <h4>2.1 Wrapping an object in a Create Activity</h4>
@@ -95,13 +95,13 @@
            server intractions in [ActivityPub].</p>
         <section>
           <h5>EXAMPLE: An intent with <code>actor</code> and non-Activity
-              <code>target</code></h5>
+              <code>object</code></h5>
           <pre><code>{
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "https://akihikodaki.github.io/activity-intent/ns#Intent",
   "summary": "Mallory is creating a note",
   "actor": "https://example.net/~mallory",
-  "target": {
+  "object": {
      "type": "Note",
      "content": "This is a note",
      "published": "2015-02-10T15:04:55Z",
@@ -145,12 +145,12 @@
       <section>
         <h3>3.1 Unsupported Activities for Intents</h3>
         <p><i>This section is non-normative.</i></p>
-        <p>Some activities MAY NOT have a clear meaning as intent targets.
+        <p>Some activities MAY NOT have a clear meaning as intent objects.
            For example, it is quite a unclear that an intent of an intent means.
            Some MAY NOT be simply supported by the receiver as intent
-           targets.</p>
+           objects.</p>
         <p>A provider of an intent SHOULD NOT assume a particular activity
-           is supported as an intent target by any receivers. A public provider
+           is supported as an intent object by any receivers. A public provider
            of an intent SHOULD provide a fallback in case that the receiver
            could not process the intent.</p>
       </section>
